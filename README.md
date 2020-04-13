@@ -1,2 +1,2 @@
-# deep-learning
-Deep learning
+# Deep Learning Specialization
+Master Deep Learning
