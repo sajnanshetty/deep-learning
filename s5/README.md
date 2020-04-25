@@ -1,6 +1,6 @@
 ## SESSION5 assignment:
 
-####Code1: Created Skeleton code
+#### Code1: Created Skeleton code
 
 ### Target:
 	* Achieve 99.4% accuracy using skeleton code.
@@ -18,7 +18,7 @@
 	* Model is over-fitting, but we are changing our model in the next code
 	
 	
-####Code2: Created lighter code
+#### Code2: Created lighter code
 
 ### Target:
 	* Achieve 99.4% accuracy using lighter code.
@@ -35,7 +35,7 @@
 	* Model is is under fitting.
 	* Even model pushed further the test accuracy will not be able to meet the target.
 	
-####Code2: Created with lighter code with batch normalization
+#### Code2: Created with lighter code with batch normalization
 
 ### Target:
 	* Achieve 99.4% accuracy using lighter code.
@@ -54,7 +54,7 @@
 	* The train accuracy is meeting the target accuracy.
 	* Even model pushed further the test accuracy will not be able to meet the target.
 	
-####Code3: Apply Reguralization using droup out
+#### Code3: Apply Reguralization using droup out
 
 ### Target:
 	* Achieve 99.4% accuracy using lighter code.
@@ -74,7 +74,7 @@
 	* Used 15 epochs to train model could not meet target accuracy.
 	* If model pushed further the test accuracy will be able to meet the target.
 	
-####Code4: Apply GAP
+#### Code4: Apply GAP
 
 ### Target:
 	* Achieve 99.4% accuracy using lighter code.
@@ -95,7 +95,7 @@
 	* This works better.But Model did not meet the target accuracy.
 	* This model is very well trained even with less parameters.
 	
-####Code5: Apply Image Augumentaion maintaining parameters below 10k
+#### Code5: Apply Image Augumentaion maintaining parameters below 10k
 
 ### Target:
 	* Achieve 99.4% accuracy using lighter code.
