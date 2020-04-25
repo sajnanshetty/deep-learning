@@ -1,7 +1,6 @@
 ## SESSION5 assignment:
 
 ### Code1: Created Skeleton code
-
 Target:
 	* Achieve 99.4% accuracy using skeleton code.
 	* Set the Transforms
@@ -19,7 +18,6 @@ Analysis:
 	
 	
 ### Code2: Created lighter code
-
 Target:
 	* Achieve 99.4% accuracy using lighter code.
 	* Set the Transforms
@@ -54,7 +52,6 @@ Analysis:
 	* Even model pushed further the test accuracy will not be able to meet the target.
 	
 ### Code3: Apply Reguralization using droup out
-
 Target:
 	* Achieve 99.4% accuracy using lighter code.
 	* Set the Transforms
@@ -74,7 +71,6 @@ Analysis:
 	* If model pushed further the test accuracy will be able to meet the target.
 	
 ### Code4: Apply GAP
-
 Target:
 	* Achieve 99.4% accuracy using lighter code.
 	* Set the Transforms
@@ -95,7 +91,6 @@ Analysis:
 	* This model is very well trained even with less parameters.
 	
 ### Code5: Apply Image Augumentaion maintaining parameters below 10k
-
 Target:
 	* Achieve 99.4% accuracy using lighter code.
 	* Set the Transforms
