@@ -3,7 +3,7 @@ import torch
 class DataLoader(object):
 
     def __init__(self, train, test, batch_size=128):
-        self.data_loader(train, test, batch_size)
+        self.train_loader, self.test_loader = self.data_loader(train, test, batch_size)
 
     def data_loader(self, train, test, batch_size=128,  num_workers=4):
         SEED = 1
@@ -21,7 +21,8 @@ class DataLoader(object):
         dataloader_args = dict(shuffle=True, batch_size=batch_size, num_workers=num_workers, pin_memory=True) if cuda else dict(shuffle=True, batch_size=64)
 
         # train dataloader
-        self.train_loader = torch.utils.data.DataLoader(train, **dataloader_args)
+        train_loader = torch.utils.data.DataLoader(train, **dataloader_args)
 
         # test dataloader
-        self.test_loader = torch.utils.data.DataLoader(test, **dataloader_args)
+        test_loader = torch.utils.data.DataLoader(test, **dataloader_args)
+        return train_loader, test_loader
