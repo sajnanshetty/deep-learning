@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from google.colab import files
 
 class Plot(object):
 
@@ -37,6 +38,7 @@ class Plot(object):
             plt.plot(train_data)
             plt.show()
             fig.savefig('train_{0}_graph.png'.format(plot_case.lower()))
+            files.download('train_{0}_graph.png'.format(plot_case.lower()))
         except Exception as err:
             raise err
 
@@ -54,11 +56,12 @@ class Plot(object):
             plt.plot(test_data)
             plt.show()
             fig.savefig('validation_{0}_graph.png'.format(plot_case.lower()))
+            files.download('validation_{0}_graph.png'.format(plot_case.lower()))
         except Exception as err:
             raise err
 
     @staticmethod
-    def plot_misclassified(misclassified_images, image_count=25):
+    def plot_mnist_misclassified_images(misclassified_images, image_count=25):
       fig = plt.figure(figsize=(15, 15))
       for i in range(image_count):
         sub = fig.add_subplot(5, 5, i+1)
@@ -66,7 +69,27 @@ class Plot(object):
         sub.set_title("Predicted={0}, Actual={1}".format(str(misclassified_images[i][1].data.cpu().numpy()),str(misclassified_images[i][2].data.cpu().numpy())))
       plt.tight_layout()
       plt.show()
-      fig.savefig("misclassified_images.png")
+      fig.savefig("mnist_misclassified_images.png")
+      files.download("mnist_misclassified_images.png")
+
+
+    @staticmethod
+    def plot_cifar_misclassified_images(misclassified_images, image_count=25):
+      classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+      fig = plt.figure(figsize=(10, 10))
+      for i in range(image_count):
+        sub = fig.add_subplot(5, 5, i+1)
+        img =  misclassified_images[i][0].cpu()
+        img = img / 2 + 0.5
+        npimg = img.numpy()
+        plt.imshow(np.transpose(npimg, (1, 2, 0)),cmap='gray',interpolation='nearest')
+        sub.set_title("P={0}, A={1}".format(str(classes[misclassified_images[i][1].item()]),str(classes[misclassified_images[i][2].item()])))
+      plt.xlabel("A={0} ".format(str(classes[misclassified_images[i][1].item()])))
+      plt.ylabel("P={0} ".format(str(classes[misclassified_images[i][2].item()])))
+      plt.tight_layout()
+      plt.show()
+      fig.savefig("cifar_misclassified_images.png")
+      files.download("cifar_misclassified_images.png")
 
     @staticmethod
     def image_show(img):

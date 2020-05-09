@@ -45,13 +45,13 @@ def norm2d(output_channels, batch_type="BN"):
     else:
         return nn.BatchNorm2d(output_channels)
 
-class Net(nn.Module):
+class NetMNIST(nn.Module):
     def __init__(self, batch_type="BN"):
-        super(Net, self).__init__()
+        super(NetMNIST, self).__init__()
         p = 0.07
         # Input Block
         self.convblock1 = nn.Sequential(
-            nn.Conv2d(in_channels=3, out_channels=6, kernel_size=(3, 3), padding=0, bias=False),
+            nn.Conv2d(in_channels=1, out_channels=12, kernel_size=(3, 3), padding=0, bias=False),
             #nn.BatchNorm2d(12),
             norm2d(12, batch_type),
             nn.ReLU(),
@@ -112,7 +112,7 @@ class Net(nn.Module):
 
         self.convblock8 = nn.Sequential(
             nn.Conv2d(in_channels=16, out_channels=10, kernel_size=(1, 1), padding=0, bias=False),
-        ) # output_size = 8, RF=30
+        ) # output_size = 1, RF=30
 
     def forward(self, x):
         x = self.convblock1(x)
@@ -126,5 +126,92 @@ class Net(nn.Module):
         x = self.convblock7(x)
         x = self.gap(x)
         x = self.convblock8(x)
+        x = x.view(-1, 10)
+        return F.log_softmax(x)
+
+
+class CIFARNet1(nn.Module):
+    """This model applies depthwise and dialated convolution"""
+    def __init__(self, batch_type="BN", droupout=0.1):
+        super(CIFARNet1, self).__init__()
+        # Input Block
+
+        self.convblock1 = nn.Sequential(
+            nn.Conv2d(in_channels=3, out_channels=32, kernel_size=(3, 3), padding=1, bias=False),  # outputsize=32 RF=3
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Dropout2d(droupout),
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3), padding=1, bias=False),  # outputsize=32 RF=5
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.Dropout2d(droupout)
+        )  # output_size = 32
+        self.pool1 = nn.Sequential(nn.MaxPool2d(2, 2),  # outputsize=16 RF=6
+                                   nn.Conv2d(in_channels=64, out_channels=32, kernel_size=(1, 1), bias=False),  # outputsize=16 RF=6
+                                   nn.BatchNorm2d(32),
+                                   nn.ReLU(),
+                                   nn.Dropout2d(droupout),
+                                   )  # output=16 RF=6
+        self.convblock2 = nn.Sequential(
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3), padding=1, bias=False),  # output=16 RF=10
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.Dropout2d(droupout),
+            nn.Conv2d(in_channels=64, out_channels=64, kernel_size=(3, 3),
+                      padding=1, bias=False,
+                      groups=64),  # Apply Depthwise convolution #output=16 RF=14
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.Dropout2d(droupout),
+            nn.Conv2d(in_channels=64, out_channels=256, kernel_size=(1, 1),  # Apply pointwise convolution on depthwise #output=20 RF=14
+                      padding=2, bias=False),
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            nn.Dropout2d(droupout),
+
+        )  # output_size = 18
+        self.pool2 = nn.Sequential(nn.MaxPool2d(2, 2),  # output 10 RF=16
+                                   nn.Conv2d(in_channels=256, out_channels=32, kernel_size=(1, 1), padding=1, bias=False),
+                                   nn.BatchNorm2d(32),
+                                   nn.ReLU(),
+                                   nn.Dropout2d(droupout), )  # output 12 RF=16
+        self.convblock3 = nn.Sequential(
+            nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3), padding=2, bias=False, dilation=2), #Apply dilated convolution  # output 12 RF=24
+            nn.BatchNorm2d(64),
+            nn.ReLU(),
+            nn.Dropout2d(droupout),
+            nn.Conv2d(in_channels=64, out_channels=128, kernel_size=(3, 3), padding=2, bias=False),  # output 14 RF=32
+            nn.BatchNorm2d(128),
+            nn.ReLU(),
+            nn.Dropout2d(droupout)
+        )
+        self.pool3 = nn.Sequential(nn.MaxPool2d(2, 2),  # output 7 RF=36
+                                   nn.Conv2d(in_channels=128, out_channels=32, kernel_size=(1, 1), bias=False, padding=1),
+                                   nn.BatchNorm2d(32),
+                                   nn.ReLU(),
+                                   nn.Dropout2d(droupout))  # output 7 RF=9
+
+        self.convblock4 = nn.Sequential(
+            nn.Conv2d(in_channels=32, out_channels=32, kernel_size=(3, 3), padding=1, bias=False, groups=32),  # output=9 RF=52  # Apply depthwise convolutuin grouping
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Dropout2d(droupout),
+            nn.Conv2d(in_channels=32, out_channels=256, kernel_size=(1, 1), bias=False),  # output=9  RF=52 #Apply pointwise convolution on depthwise
+            nn.BatchNorm2d(256),
+            nn.ReLU(),
+            nn.Dropout2d(droupout),
+
+            nn.AvgPool2d(kernel_size=7), # output_size = 1 RF=100
+            nn.Conv2d(in_channels=256, out_channels=10, kernel_size=(1, 1), padding=0, bias=False),
+        )  # output_size = 1 RF=100
+
+    def forward(self, x):
+        x = self.convblock1(x)
+        x = self.pool1(x)
+        x = self.convblock2(x)
+        x = self.pool2(x)
+        x = self.convblock3(x)
+        x = self.pool3(x)
+        x = self.convblock4(x)
         x = x.view(-1, 10)
         return F.log_softmax(x)

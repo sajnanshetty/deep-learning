@@ -47,6 +47,11 @@ class HelperModel(object):
         loss += l1_factor * reg_loss
         return loss
 
+    @staticmethod
+    def calculate_output_size(input_channel_size, padding, kernel_size, stride=1, dilation=1):
+        output_channel_size = ((input_channel_size + 2 * padding - kernel_size - (kernel_size - 1) * (dilation - 1)) / stride) + 1
+        return output_channel_size
+
 
 
 
