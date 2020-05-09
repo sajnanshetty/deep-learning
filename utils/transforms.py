@@ -4,7 +4,7 @@ from torchvision import transforms, datasets
 
 class Transform(object):
 
-    def __init__(self, mean, std, train_transforms = None,  test_transforms=None):
+    def __init__(self, mean=None, std=None, train_transforms = None,  test_transforms=None):
         if train_transforms is None:
             train_transforms = self.get_default_train_transforms(mean, std)
         if test_transforms is None:

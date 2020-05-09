@@ -51,7 +51,7 @@ class Net(nn.Module):
         p = 0.07
         # Input Block
         self.convblock1 = nn.Sequential(
-            nn.Conv2d(in_channels=1, out_channels=12, kernel_size=(3, 3), padding=0, bias=False),
+            nn.Conv2d(in_channels=3, out_channels=6, kernel_size=(3, 3), padding=0, bias=False),
             #nn.BatchNorm2d(12),
             norm2d(12, batch_type),
             nn.ReLU(),
