@@ -31,6 +31,7 @@
 ### Summary:
 1. Used L2 Regularization, Batch Normalization, Dropout, Dilated and DepthwiseConvolution.
 2. Batch Size 128 and Epochs=40
+3. Parameters = 174,336
 3. Maximum Train accuracy:  76.91
 4. Test accuracy:  80.86 
 5. Receptive Field=100
