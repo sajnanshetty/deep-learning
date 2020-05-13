@@ -52,6 +52,28 @@ class HelperModel(object):
         output_channel_size = ((input_channel_size + 2 * padding - kernel_size - (kernel_size - 1) * (dilation - 1)) / stride) + 1
         return output_channel_size
 
+    @staticmethod
+    def jump_out(jump_in, stride):
+        """
+        This calculates jump value of next layer based on current layer jump amd stride value
+        :param jump_in: previous cov layer jump value. Default 1 for first input layer
+        :param stride: stride of previous value
+        :return: Returns next conv block jump value
+        """
+        return jump_in * stride
+
+    @staticmethod
+    def calculate_receptive_field(jump_in, kernel_size, receptive_field_in):
+         """
+
+         :param jump_in: Current jump in value of conv layer
+         :param kernel_size: current kernel size of block
+         :param receptive_field_in: Receptive field of previous conv block
+         :return:
+         """
+         receptive_field_out = receptive_field_in + (kernel_size - 1) * jump_in
+         return receptive_field_out
+
 
 
 
