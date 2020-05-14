@@ -29,7 +29,7 @@
 ### Summary:
 1. Used L2 Regularization, schedular OneCycleLR
 2. Batch Size 64 and Epochs=20
-3. Parameters = 174,336
+3. Parameters = 11,173,962
 3. Maximum Train accuracy:  95.69
 4. Test accuracy:  92.39
 
