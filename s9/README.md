@@ -28,16 +28,16 @@
 ![correctclassified](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/gradcam_correctlyified.png)
 
 ## Albumentaion applied images for all cifa10 classes
-![albumentaion1](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion.png)
-![albumentaion2](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion1.png)
-![albumentaion3](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion2.png)
-![albumentaion4](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion3.png)
-![albumentaion5](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion4.png)
-![albumentaion6](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion5.png)
-![albumentaion7](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion6.png)
-![albumentaion8](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion7.png)
-![albumentaion9](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion8.png)
-![albumentaion10](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/albumentaion9.png)
+![albumentaion1](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/0.PNG)
+![albumentaion2](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/1.PNG)
+![albumentaion3](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/2.PNG)
+![albumentaion4](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/3.PNG)
+![albumentaion5](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/4.PNG)
+![albumentaion6](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/5.PNG)
+![albumentaion7](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/6.PNG)
+![albumentaion8](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/7.PNG)
+![albumentaion9](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/8.PNG)
+![albumentaion10](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/9.PNG)
 
 ## GradCam and Heatmap visualization for few correctly classified images in Layer4
 ![correctclassified1](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/gradcam_result_images/gradcam_correctclassified.png)
