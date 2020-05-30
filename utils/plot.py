@@ -74,15 +74,15 @@ class Plot(object):
 
 
     @staticmethod
-    def plot_cifar_misclassified_images(misclassified_images, image_count=25):
-      classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+    def plot_cifar_misclassified_images(classes, misclassified_images, image_count=25):
+      #classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
       fig = plt.figure(figsize=(10, 10))
       for i in range(image_count):
         sub = fig.add_subplot(5, 5, i+1)
         img =  misclassified_images[i][0].cpu()
         img = img / 2 + 0.5
         npimg = img.numpy()
-        plt.imshow(np.transpose(npimg, (1, 2, 0)),cmap='gray',interpolation='nearest')
+        plt.imshow(np.transpose(npimg, (1, 2, 0)), cmap='gray', interpolation='nearest')
         sub.set_title("P={0}, A={1}".format(str(classes[misclassified_images[i][1].item()]),str(classes[misclassified_images[i][2].item()])))
       plt.xlabel("A={0} ".format(str(classes[misclassified_images[i][1].item()])))
       plt.ylabel("P={0} ".format(str(classes[misclassified_images[i][2].item()])))
@@ -92,7 +92,15 @@ class Plot(object):
       files.download("cifar_misclassified_images.png")
 
     @staticmethod
-    def image_show(img):
+    def image_show(img, title=None, download_image=None):
+        fig = plt.figure(figsize=(10, 10))
         img = img / 2 + 0.5  # unnormalize
         npimg = img.numpy()
-        plt.imshow(np.transpose(npimg, (1, 2, 0)))
+        plt.imshow(np.transpose(npimg, (1, 2, 0)), interpolation='none')
+        if title is not None:
+            plt.title(title)
+        plt.pause(0.001)
+        if download_image:
+            fig.savefig(download_image)
+            files.download(download_image)
+

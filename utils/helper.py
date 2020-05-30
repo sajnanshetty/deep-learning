@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 from torch.optim.lr_scheduler import StepLR, OneCycleLR
 import torch.optim as optim
+from models.resnet import *
 
 
 class HelperModel(object):
@@ -27,35 +28,35 @@ class HelperModel(object):
         optimizer = optim.SGD(self.model.parameters(), lr=lr, momentum=momentum)
         return optimizer
 
-    def get_one_cycle_lr(self, lr=0.01, momentum=0.9, optimizer = None, max_lr=0.1,     total_steps=20):
-       if optimizer is None:
-         optimizer = self.get_optimizer(lr=lr, momentum = momentum)
-       scheduler = OneCycleLR(optimizer, max_lr=max_lr, total_steps=total_steps )
-       return scheduler
+    def get_one_cycle_lr(self, lr=0.01, momentum=0.9, optimizer=None, max_lr=0.1, total_steps=20):
+        if optimizer is None:
+            optimizer = self.get_optimizer(lr=lr, momentum=momentum)
+        scheduler = OneCycleLR(optimizer, max_lr=max_lr, total_steps=total_steps)
+        return scheduler
 
     def get_step_optimizer(self, lr=0.01, momentum=0.9, step_size=1, gamma=0.1, optimizer=None):
-       if optimizer is None:
+        if optimizer is None:
             optimizer = self.get_optimizer(self.model, lr, momentum)
-       scheduler = StepLR(optimizer, step_size, gamma)
-       return scheduler
+        scheduler = StepLR(optimizer, step_size, gamma)
+        return scheduler
 
     def get_l2_regularizer(self, weight_decay=0.001, lr=0.01, momentum=0.9):
         l2_regularizer = optim.SGD(self.model.parameters(), lr=lr, momentum=momentum, weight_decay=weight_decay)
         return l2_regularizer
-
 
     @staticmethod
     def apply_l1_regularizer(model, loss, l1_factor=0.0005):
         reg_loss = 0
         parameters = model.parameters()
         for param in parameters:
-          reg_loss += torch.sum(param.abs())
+            reg_loss += torch.sum(param.abs())
         loss += l1_factor * reg_loss
         return loss
 
     @staticmethod
     def calculate_output_size(input_channel_size, padding, kernel_size, stride=1, dilation=1):
-        output_channel_size = ((input_channel_size + 2 * padding - kernel_size - (kernel_size - 1) * (dilation - 1)) / stride) + 1
+        output_channel_size = ((input_channel_size + 2 * padding - kernel_size - (kernel_size - 1) * (
+                    dilation - 1)) / stride) + 1
         return output_channel_size
 
     @staticmethod
@@ -70,16 +71,33 @@ class HelperModel(object):
 
     @staticmethod
     def calculate_receptive_field(jump_in, kernel_size, receptive_field_in):
-         """
+        """
 
          :param jump_in: Current jump in value of conv layer
          :param kernel_size: current kernel size of block
          :param receptive_field_in: Receptive field of previous conv block
          :return:
          """
-         receptive_field_out = receptive_field_in + (kernel_size - 1) * jump_in
-         return receptive_field_out
+        receptive_field_out = receptive_field_in + (kernel_size - 1) * jump_in
+        return receptive_field_out
 
+    @staticmethod
+    def save_model(model, file_name):
+        """
 
+        :param model: model which needs to be saved
+        :param file_name: the file name of model eg: 'model_aug.pth'
+        :return: None
+        """
+        torch.save(model.state_dict(), file_name)
 
+    @staticmethod
+    def load_checkpoint(model, file_path):
+        """
 
+        :param model:
+        :param file_path:
+        :return:
+        """
+        model.load_state_dict(torch.load(file_path))
+        return model

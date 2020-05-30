@@ -50,3 +50,4 @@ class DataSetInfo(object):
                                                     download=True, transform=test_transform)
         return test
 
+
