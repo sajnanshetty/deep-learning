@@ -110,7 +110,7 @@ class Plot(object):
 
     @staticmethod
     def image_show(img, title=None, download_image=None):
-        fig = plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=(7, 7))
         img = img / 2 + 0.5  # unnormalize
         npimg = img.numpy()
         plt.imshow(np.transpose(npimg, (1, 2, 0)), interpolation='none')
