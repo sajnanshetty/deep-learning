@@ -30,7 +30,7 @@
 ## Albumentaion applied images for all cifa10 classes
 ![albumentaion1](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/0.PNG)
 ![albumentaion2](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/1.PNG)
-![albumentaion3](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/2.PNG)
+![albumentaion3](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/2.png)
 ![albumentaion4](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/3.PNG)
 ![albumentaion5](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/4.PNG)
 ![albumentaion6](https://github.com/sajnanshetty/deep-learning/blob/master/s9/images/albumentaion/5.PNG)
