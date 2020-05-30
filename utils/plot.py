@@ -75,7 +75,6 @@ class Plot(object):
 
     @staticmethod
     def plot_cifar_misclassified_images(classes, misclassified_images, image_count=25):
-      #classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
       fig = plt.figure(figsize=(10, 10))
       for i in range(image_count):
         sub = fig.add_subplot(5, 5, i+1)
@@ -90,6 +89,24 @@ class Plot(object):
       plt.show()
       fig.savefig("cifar_misclassified_images.png")
       files.download("cifar_misclassified_images.png")
+
+    @staticmethod
+    def plot_classified_images(classes, classified_images, image_count=25, image_name=None):
+      fig = plt.figure(figsize=(10, 10))
+      for i in range(image_count):
+        sub = fig.add_subplot(5, 5, i+1)
+        img = classified_images[i][0].cpu()
+        img = img / 2 + 0.5
+        npimg = img.numpy()
+        plt.imshow(np.transpose(npimg, (1, 2, 0)), cmap='gray', interpolation='nearest')
+        sub.set_title("P={0}, A={1}".format(str(classes[classified_images[i][1].item()]),str(classes[classified_images[i][2].item()])))
+      plt.xlabel("A={0} ".format(str(classes[classified_images[i][1].item()])))
+      plt.ylabel("P={0} ".format(str(classes[classified_images[i][2].item()])))
+      plt.tight_layout()
+      plt.show()
+      if image_name:
+          fig.savefig(image_name)
+          files.download(image_name)
 
     @staticmethod
     def image_show(img, title=None, download_image=None):
