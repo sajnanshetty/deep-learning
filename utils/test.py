@@ -15,6 +15,7 @@ class Test(object):
     def display_classwise_accuracy(self, test_loader, model, classes, device):
         class_correct = list(0. for i in range(len(classes)))
         class_total = list(0. for i in range(len(classes)))
+        print("\n")
         with torch.no_grad():
             for images, labels in test_loader:
                 images, labels = images.to(device), labels.to(device)

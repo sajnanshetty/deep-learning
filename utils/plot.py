@@ -24,6 +24,8 @@ class Plot(object):
             axs[0, 1].set_title("Validation Loss")
             axs[1, 1].plot(self.test_acc)
             axs[1, 1].set_title("Validation Accuracy")
+            fig.savefig('all_graph.png')
+            files.download('all_graph.png')
         except Exception as err:
             raise err
 
@@ -57,9 +59,10 @@ class Plot(object):
         plt.ylabel(plot_case)
         ax.plot(train_data, 'r', label='Train')
         ax.plot(test_data, 'b', label='Validation')
-        ax.legend(loc='upper left')
+        ax.legend(loc='upper right')
         plt.show()
-        fig.savefig('train_validation_{0}_change.png' % (plot_case.lower()))
+        fig.savefig('train_validation_{0}_change.png'.format(plot_case.lower()))
+        files.download('train_validation_{0}_change.png'.format(plot_case.lower()))
 
     def plot_validation_graph(self, plot_case="Accuracy"):
         """Plots single graph for validation losses/accuracy"""
