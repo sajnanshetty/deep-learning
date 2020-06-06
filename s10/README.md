@@ -37,7 +37,7 @@
 ![misclassified17](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_17.png)
 ![misclassified18](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_18.png)
 ![misclassified19](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_19.png)
-![misclassified20(https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_20.png)
+![misclassified20](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_20.png)
 ![misclassified21](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_21.png)
 ![misclassified22](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_22.png)
 ![misclassified23](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_23.png)
