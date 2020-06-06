@@ -45,10 +45,10 @@
 ![misclassified25](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/gradcam_misclassified/gradcam_missclassified_25.png)
 
 ## GradCam and heatmap visualization of an misclassified image in layer1, layer2, layer3, layer4
-![layer1](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_layer/gradcam_layer_1.png)
-![layer2](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_layer/gradcam_layer_2.png)
-![layer3](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_layer/gradcam_layer_3.png)
-![layer4](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_layer/gradcam_layer_4.png)
+![layer1](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_layer1/gradcam_layer_1.png)
+![layer2](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_layer1/gradcam_layer_2.png)
+![layer3](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_layer1/gradcam_layer_3.png)
+![layer4](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_layer1/gradcam_layer_4.png)
 
 ## Train and Validation Accuracy Change:
 ![accuracy_graph](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/train_validation_accuracy_change.png)
