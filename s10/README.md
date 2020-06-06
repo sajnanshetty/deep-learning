@@ -53,7 +53,7 @@
 ## Train and Validation Accuracy Change:
 ![accuracy_graph](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/train_validation_accuracy_change.png)
 
-## Accuracy and Loss for both Train and Accuracy:
+## Accuracy and Loss for both Train and Validation:
 ![accuracy_graph](https://github.com/sajnanshetty/deep-learning/blob/master/s10/images/all_graph.png)
 
 
