@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torchvision
 from google.colab import files
+from gradcam import GradCAM, visualize_cam
+from torchvision.utils import make_grid, save_image
 
 
 class Plot(object):
@@ -59,7 +61,7 @@ class Plot(object):
         plt.ylabel(plot_case)
         ax.plot(train_data, 'r', label='Train')
         ax.plot(test_data, 'b', label='Validation')
-        ax.legend(loc='upper right')
+        ax.legend(loc='upper left')
         plt.show()
         fig.savefig('train_validation_{0}_change.png'.format(plot_case.lower()))
         files.download('train_validation_{0}_change.png'.format(plot_case.lower()))
@@ -116,6 +118,12 @@ class Plot(object):
 
     @staticmethod
     def plot_transormed_images(train_loader, classes):
+        """
+        Displays 5 images from each class
+        :param train_loader: train loader
+        :param classes: class names
+        :return: None
+        """
         images, labels = iter(train_loader).next()
         for i in range(len(classes)):
             index = [j for j in range(len(labels)) if labels[j] == i]
@@ -125,6 +133,23 @@ class Plot(object):
             fig = plt.figure(figsize=(5, 5))
             plt.imshow(np.transpose(npimg, (1, 2, 0)), interpolation='none')
             plt.title(classes[i])
+
+    @staticmethod
+    def plot_transormed_random_images(train_loader, classes):
+        """
+        Displays random 5 images
+        :param train_loader: train loader
+        :param classes: class names
+        :return: None
+        """
+        images, labels = iter(train_loader).next()
+        class_names = [classes[x] for x in labels[0:5]]
+        img = torchvision.utils.make_grid(images[0:5], nrow=5, padding=2, scale_each=False)
+        img = img / 2 + 0.5
+        npimg = img.numpy()
+        fig = plt.figure(figsize=(10, 10))
+        plt.imshow(np.transpose(npimg, (1, 2, 0)), interpolation='none')
+        plt.title(class_names)
 
     @staticmethod
     def plot_classified_images(classes, classified_images, image_count=25, image_name=None):
@@ -157,3 +182,24 @@ class Plot(object):
         if download_image:
             fig.savefig(download_image)
             files.download(download_image)
+
+    @staticmethod
+    def plot_gradcam_images(model, layers, image_list, classes, figsize=(23,33), sub_plot_rows=9, sub_plot_cols=3, image_count=25):
+      fig = plt.figure(figsize=figsize)
+      for i in range(image_count):
+        heat_map_image = [image_list[i][0].cpu()/2+0.5]
+        result_image = [image_list[i][0].cpu()/2+0.5]
+        for model_layer in layers:
+          grad_cam = GradCAM(model, model_layer)
+          mask, _ = grad_cam(image_list[i][0].clone().unsqueeze_(0))
+          heatmap, result = visualize_cam(mask, image_list[i][0].clone().unsqueeze_(0)/2+0.5)
+          heat_map_image.extend([heatmap])
+          result_image.extend([result])
+        grid_image = make_grid(heat_map_image+result_image, nrow=len(layers)+1,pad_value=1)
+        npimg = grid_image.numpy()
+        sub = fig.add_subplot(sub_plot_rows, sub_plot_cols, i+1)
+        plt.imshow(np.transpose(npimg, (1, 2, 0)))
+        sub.set_title('P = '+classes[int(image_list[i][1])]+" A = "+classes[int(image_list[i][2])], fontweight="bold", fontsize=18)
+        sub.axis("off")
+        plt.tight_layout()
+        fig.subplots_adjust(wspace=0)

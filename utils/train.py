@@ -8,7 +8,7 @@ class Train(object):
         self.train_losses = []
         self.train_acc = []
 
-    def train(self, model, device, train_loader, optimizer, criterion, l1_factor=None):
+    def train(self, model, device, train_loader, optimizer, criterion, l1_factor=None, scheduler=None):
         model.train()
         pbar = tqdm(train_loader)
         correct = 0
@@ -18,16 +18,17 @@ class Train(object):
             data, target = data.to(device), target.to(device)
 
             # Init
-            optimizer.zero_grad()
-            # In PyTorch, we need to set the gradients to zero before starting to do backpropragation because PyTorch accumulates the gradients on subsequent backward passes.
-            # Because of this, when you start your training loop, ideally you should zero out the gradients so that you do the parameter update correctly.
+            optimizer.zero_grad()  #Reset the gradients
+            """
+            In PyTorch, we need to set the gradients to zero before starting to do backpropragation because PyTorch accumulates the gradients on subsequent backward passes.
+            Because of this, when you start your training loop, 
+            ideally you should zero out the gradients so that you do the parameter update correctly.
+            """
 
             # Predict
-            y_pred = model(data)
-            # pdb.set_trace()
+            y_pred = model(data)   # Forward pass
             # Calculate loss
-            #loss = F.nll_loss(y_pred, target)
-            loss = criterion(y_pred, target)
+            loss = criterion(y_pred, target) # Compute loss function
             # update l1 regularizer if requested
             if l1_factor:
                 loss = HelperModel.apply_l1_regularizer(model, loss, l1_factor)
@@ -35,8 +36,10 @@ class Train(object):
             self.train_losses.append(loss.item())
 
             # Backpropagation
-            loss.backward()
+            loss.backward()  #gradients calculated for each parameters
             optimizer.step()
+            if scheduler:
+                scheduler.step()
 
             # Update pbar-tqdm
 
@@ -44,7 +47,8 @@ class Train(object):
             correct += pred.eq(target.view_as(pred)).sum().item()
             processed += len(data)
 
-            pbar.set_description(desc=f'Train Set: Train Loss={loss.item()} Batch_id={batch_idx} Accuracy={100*correct/processed:0.2f}')
+            pbar.set_description(
+                desc=f'Train Set: Train Loss={loss.item()} Batch_id={batch_idx} Accuracy={100 * correct / processed:0.2f}')
             acc = float("{:.2f}".format(100 * correct / processed))
             # self.train_acc.append(100*correct/processed)
             self.train_acc.append(acc)

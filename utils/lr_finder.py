@@ -5,6 +5,8 @@ from tqdm.autonotebook import tqdm
 from torch.optim.lr_scheduler import _LRScheduler
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader
+from train import Train
+from test import Test
 
 from packaging import version
 
@@ -114,13 +116,13 @@ class LRFinder(object):
     """
 
     def __init__(
-        self,
-        model,
-        optimizer,
-        criterion,
-        device=None,
-        memory_cache=True,
-        cache_dir=None,
+            self,
+            model,
+            optimizer,
+            criterion,
+            device=None,
+            memory_cache=True,
+            cache_dir=None,
     ):
         # Check if the optimizer is already attached to a scheduler
         self.optimizer = optimizer
@@ -128,8 +130,9 @@ class LRFinder(object):
 
         self.model = model
         self.criterion = criterion
-        self.history = {"lr": [], "loss": []}
+        self.history = {"lr": [], "loss": [], "acc": []}
         self.best_loss = None
+        self.best_acc = None
         self.memory_cache = memory_cache
         self.cache_dir = cache_dir
 
@@ -146,14 +149,19 @@ class LRFinder(object):
         else:
             self.device = self.model_device
 
-    def get_best_lr(self):
+    def get_best_lr(self, case="loss"):
         lr_list = self.history['lr']
-        loss_list = self.history['loss']
-        best_loss = self.best_loss
-        min_loss_index = loss_list.index(best_loss)
-        best_lr = lr_list[min_loss_index]
+        if case == "loss":
+            val_list = self.history['loss']
+            best_val = self.best_loss
+            print("Best loss", best_val)
+        else:
+            val_list = self.history['acc']
+            best_val = self.best_acc
+            print("Best acc", best_val)
+        min_index = val_list.index(best_val)
+        best_lr = lr_list[min_index]
         print("Best LR: ", best_lr)
-        print("Best loss", self.best_loss)
         return best_lr
 
     def reset(self):
@@ -163,18 +171,84 @@ class LRFinder(object):
         self.optimizer.load_state_dict(self.state_cacher.retrieve("optimizer"))
         self.model.to(self.model_device)
 
+    def range_test_lr_acc(
+            self,
+            device,
+            criterion,
+            train_loader,
+            val_loader=None,
+            start_lr=None,
+            end_lr=10,
+            num_iter=100,
+            epochs=100,
+            step_mode="linear"
+    ):
+        # Reset test results
+        self.history = {"lr": [], "acc": [], "loss": []}
+        self.best_acc = None
+
+        # Move the model to the proper device
+        self.model.to(self.device)
+
+        # Check if the optimizer is already attached to a scheduler
+        self._check_for_scheduler()
+
+        # Set the starting learning rate
+        if start_lr:
+            self._set_learning_rate(start_lr)
+
+        #num_iter
+
+        # Initialize the proper learning rate policy
+        if step_mode.lower() == "exp":
+            lr_schedule = ExponentialLR(self.optimizer, end_lr, num_iter)
+        elif step_mode.lower() == "linear":
+            lr_schedule = LinearLR(self.optimizer, end_lr, num_iter)
+        else:
+            raise ValueError("expected one of (exp, linear), got {}".format(step_mode))
+        test_flag = False
+        if val_loader is not None:
+            test_obj = Test()
+            test_flag = True
+        else:
+            train_obj = Train()
+        for epoch in tqdm(range(epochs)):
+            # Train on batch and retrieve loss
+            print("Epoch: ", epoch + 1)
+            train_obj.train(self.model, device, train_loader, self.optimizer, criterion)
+            current_acc = train_obj.train_acc[-1]
+            if test_flag:
+                test_obj.test(self.model, device, val_loader, criterion)
+                current_acc = test_obj.test_acc
+            # Update the learning rate
+            lr = lr_schedule.get_lr_acc()
+            print(" LR: ", lr)
+            self.history["lr"].append(lr)
+            lr_schedule.step()
+
+            # Track the best loss and smooth it if smooth_f is specified
+            if epoch == 0:
+                self.best_acc = current_acc
+            else:
+                if current_acc > self.best_acc:
+                    self.best_acc = current_acc
+
+            # Check if the loss has diverged; if it has, stop the test
+            self.history["acc"].append(current_acc)
+        print("Learning rate search finished. See the graph with {finder_name}.plot()")
+
     def range_test(
-        self,
-        train_loader,
-        val_loader=None,
-        start_lr=None,
-        end_lr=10,
-        num_iter=100,
-        step_mode="exp",
-        smooth_f=0.05,
-        diverge_th=5,
-        accumulation_steps=1,
-        non_blocking_transfer=True
+            self,
+            train_loader,
+            val_loader=None,
+            start_lr=None,
+            end_lr=10,
+            num_iter=100,  # decide how many epochs u wanr
+            step_mode="exp",
+            smooth_f=0.05,
+            diverge_th=5,
+            accumulation_steps=1,  # how many batch
+            non_blocking_transfer=True
     ):
         """Performs the learning rate range test.
 
@@ -248,8 +322,9 @@ class LRFinder(object):
         """
 
         # Reset test results
-        self.history = {"lr": [], "loss": []}
+        self.history = {"lr": [], "loss": [], "acc": []}
         self.best_loss = None
+        self.best_acc = None
 
         # Move the model to the proper device
         self.model.to(self.device)
@@ -294,13 +369,13 @@ class LRFinder(object):
 
         for iteration in tqdm(range(num_iter)):
             # Train on batch and retrieve loss
-            loss = self._train_batch(
+            loss, acc = self._train_batch(
                 train_iter,
                 accumulation_steps,
                 non_blocking_transfer=non_blocking_transfer,
             )
             if val_loader:
-                loss = self._validate(
+                loss, acc = self._validate(
                     val_iter, non_blocking_transfer=non_blocking_transfer
                 )
 
@@ -311,15 +386,21 @@ class LRFinder(object):
             # Track the best loss and smooth it if smooth_f is specified
             if iteration == 0:
                 self.best_loss = loss
+                self.best_acc = acc
             else:
                 if smooth_f > 0:
                     loss = smooth_f * loss + (1 - smooth_f) * self.history["loss"][-1]
                 if loss < self.best_loss:
                     self.best_loss = loss
+                if acc > self.best_acc:
+                    self.best_acc = acc
 
             # Check if the loss has diverged; if it has, stop the test
             self.history["loss"].append(loss)
+            self.history["acc"].append(acc)
             if loss > diverge_th * self.best_loss:
+                print("current acc: ", acc)
+                print("acc: ", self.best_acc)
                 print("Stopping early, the loss has diverged")
                 break
 
@@ -343,10 +424,12 @@ class LRFinder(object):
                 raise RuntimeError("Optimizer already has a scheduler attached to it")
 
     def _train_batch(
-        self, train_iter, accumulation_steps, non_blocking_transfer=True
+            self, train_iter, accumulation_steps, non_blocking_transfer=True
     ):
         self.model.train()
         total_loss = None  # for late initialization
+        correct = 0
+        processed = 0
 
         self.optimizer.zero_grad()
         for i in range(accumulation_steps):
@@ -369,7 +452,7 @@ class LRFinder(object):
                 delay_unscale = ((i + 1) % accumulation_steps) != 0
 
                 with amp.scale_loss(
-                    loss, self.optimizer, delay_unscale=delay_unscale
+                        loss, self.optimizer, delay_unscale=delay_unscale
                 ) as scaled_loss:
                     scaled_loss.backward()
             else:
@@ -382,7 +465,13 @@ class LRFinder(object):
 
         self.optimizer.step()
 
-        return total_loss.item()
+        pred = outputs.argmax(dim=1, keepdim=True)  # get the index of the max log-probability
+        correct += pred.eq(labels.view_as(pred)).sum().item()
+        processed += len(inputs)
+
+        acc = float("{:.2f}".format(100 * correct / processed))
+
+        return total_loss.item(), acc
 
     def _move_to_device(self, inputs, labels, non_blocking=True):
         def move(obj, device, non_blocking=True):
@@ -404,6 +493,7 @@ class LRFinder(object):
     def _validate(self, val_iter, non_blocking_transfer=True):
         # Set model to evaluation mode and disable gradient computation
         running_loss = 0
+        correct = 0
         self.model.eval()
         with torch.no_grad():
             for inputs, labels in val_iter:
@@ -421,10 +511,13 @@ class LRFinder(object):
                 outputs = self.model(inputs)
                 loss = self.criterion(outputs, labels)
                 running_loss += loss.item() * batch_size
+                pred = outputs.argmax(dim=1, keepdim=True)
+                correct += pred.eq(labels.view_as(pred)).sum().item()
+                test_acc = 100. * correct / len(val_iter.dataset)
 
-        return running_loss / len(val_iter.dataset)
+        return running_loss / len(val_iter.dataset), test_acc
 
-    def plot(self, skip_start=10, skip_end=5, log_lr=True, show_lr=None, ax=None):
+    def plot(self, skip_start=10, skip_end=5, log_lr=True, show_lr=None, ax=None, plot_case="loss"):
         """Plots the learning rate range test.
 
         Arguments:
@@ -456,24 +549,30 @@ class LRFinder(object):
         # properly so the behaviour is the expected
         lrs = self.history["lr"]
         losses = self.history["loss"]
+        accuracy = self.history["acc"]
+        label = "Loss" if plot_case == "loss" else "Accuracy"
         if skip_end == 0:
             lrs = lrs[skip_start:]
             losses = losses[skip_start:]
+            accuracy = accuracy[skip_start:]
         else:
             lrs = lrs[skip_start:-skip_end]
             losses = losses[skip_start:-skip_end]
+            accuracy = accuracy[skip_start:-skip_end]
 
         # Create the figure and axes object if axes was not already given
         fig = None
         if ax is None:
             fig, ax = plt.subplots()
 
+        y_value = losses if label == "Loss" else accuracy
+
         # Plot loss as a function of the learning rate
-        ax.plot(lrs, losses)
+        ax.plot(lrs, y_value)
         if log_lr:
             ax.set_xscale("log")
         ax.set_xlabel("Learning rate")
-        ax.set_ylabel("Loss")
+        ax.set_ylabel(label)
 
         if show_lr is not None:
             ax.axvline(x=show_lr, color="red")

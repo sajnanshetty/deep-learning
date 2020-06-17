@@ -8,6 +8,7 @@ import torch.nn as nn
 from torch.optim.lr_scheduler import StepLR, OneCycleLR
 import torch.optim as optim
 from models.resnet import *
+import pickle
 
 
 class HelperModel(object):
@@ -56,7 +57,7 @@ class HelperModel(object):
     @staticmethod
     def calculate_output_size(input_channel_size, padding, kernel_size, stride=1, dilation=1):
         output_channel_size = ((input_channel_size + 2 * padding - kernel_size - (kernel_size - 1) * (
-                    dilation - 1)) / stride) + 1
+                dilation - 1)) / stride) + 1
         return output_channel_size
 
     @staticmethod
@@ -82,22 +83,51 @@ class HelperModel(object):
         return receptive_field_out
 
     @staticmethod
-    def save_model(model, file_name):
+    def save_model(model, model_obj, optimizer, file_name):
         """
 
         :param model: model which needs to be saved
         :param file_name: the file name of model eg: 'model_aug.pth'
         :return: None
         """
-        torch.save(model.state_dict(), file_name)
+        checkpoint = {'model': model_obj,
+                      'state_dict': model.state_dict(),
+                      'optimizer': optimizer.state_dict()}
+        torch.save(checkpoint, file_name)
 
     @staticmethod
-    def load_checkpoint(model, file_path):
-        """
+    def load_checkpoint(file_path):
+        checkpoint = torch.load(file_path)
+        model = checkpoint['model']
+        model.load_state_dict(checkpoint['state_dict'])
+        for parameter in model.parameters():
+            parameter.requires_grad = False
+        return model
 
-        :param model:
-        :param file_path:
+    @staticmethod
+    def store_data(file_name, data):
+        """
+        :param file_name: name of the file
+        :param data: python object like list, dict
         :return:
         """
-        model.load_state_dict(torch.load(file_path))
-        return model
+        # initializing data to be stored in db
+
+        # Its important to use binary mode
+        dbfile = open(file_name, 'ab')
+
+        # source, destination
+        pickle.dump(data, dbfile)
+        dbfile.close()
+
+    @staticmethod
+    def load_data(file_name):
+        """
+        :param file_name name to load
+        :return:
+        """
+        dbfile = open(file_name, 'rb')
+        db = pickle.load(dbfile)
+        for keys in db:
+            print(keys, '=>', db[keys])
+        dbfile.close()
