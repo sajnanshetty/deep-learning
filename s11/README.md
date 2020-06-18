@@ -1,5 +1,4 @@
 # Goal :
-Assignment:
 ```
  1. Write a code that draws below sample curve (without the arrows). 
 ```
@@ -36,21 +35,26 @@ Assignment:
 ```
 
 ## Albumentaion applied images for all cifa10 target classes
-![albumentaion1](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/albumentaion/albumentation.PNG)
+![albumentaion1](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/albumentation.PNG)
 
-## Finding Max LR using maximum accuracy
-![misclassified1](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/lr_accuracy.PNG)
+## Cyclic triangle plot using max lr:1, start lr:1e-4 and num of iterations:3395
+![clr](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/triangle/clr_triangle.PNG)
 
+## Finding Max LR using range test.using max lr:1, start lr:1e-4 and num of iterations:3395 i.e 35 epochs
+![lr_finder](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/lr_accuracy.PNG)
+
+## One Cycle triangle using all trained lr for 24 epochs
+![one_cycle](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/triangle/onecycle_triangle.PNG)
 
 ## Train and Validation Accuracy Change:
 ![accuracy_graph](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/train_validation_accuracy_change.png)
 
+## Accuracy and Loss for both Train and Validation:
+![accuracy_graph](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/all_graph.png)
 
 ## GradCam and heatmap visualization for 25 missclassified images in layer4
 ![misclassified1](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/gradcam.png)
 
-## Accuracy and Loss for both Train and Validation:
-![accuracy_graph](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/all_graph.png)
 
 
 ### Summary:
