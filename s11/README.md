@@ -34,28 +34,26 @@
  6. Achieve Target Accuracy: 90%. 
 ```
 
-## Albumentaion applied images for all cifa10 target classes
+### Albumentaion applied images 
 ![albumentaion1](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/albumentation.PNG)
 
-## Cyclic triangle plot using max lr:1, start lr:1e-4 and num of iterations:3395
+### Cyclic triangle plot using max lr:1, start lr:1e-4 and num of iterations:3395
 ![clr](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/triangle/clr_triangle.PNG)
 
-## Finding Max LR using range test.using max lr:1, start lr:1e-4 and num of iterations:3395 i.e 35 epochs
+### Finding Max LR using range test wit inputs max lr:1, start lr:1e-4 and num of iterations:3395 i.e 35 epochs
 ![lr_finder](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/lr_accuracy.PNG)
 
-## One Cycle triangle using all trained lr for 24 epochs
-![one_cycle](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/triangle/onecycle_triangle.PNG)
+### One Cycle triangle using all trained lr for 24 epochs
+![one_cycle](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/triangle/onecycle_triangle.png)
 
-## Train and Validation Accuracy Change:
+### Train and Validation Accuracy Change:
 ![accuracy_graph](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/train_validation_accuracy_change.png)
 
-## Accuracy and Loss for both Train and Validation:
+### Accuracy and Loss for both Train and Validation:
 ![accuracy_graph](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/all_graph.png)
 
-## GradCam and heatmap visualization for 25 missclassified images in layer4
+### GradCam and heatmap visualization for 25 missclassified images in layer4
 ![misclassified1](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/gradcam.png)
-
-
 
 ### Summary:
 1. Used L2 Regularization, scheduler OneCycleLR with max LR value '0.08326219372576217' which
@@ -69,29 +67,31 @@
 
 #### Experiment result for using div_factor from 5 to 10 in OneCycleLR schedule:
 
-##### Div Factor 5:
+``` 
+Div Factor 5:
 Maximum Training Accuracy =  94.13
 Maximum Testing Accuracy =   89.17
 
-#####  Div Factor 6:
+Div Factor 6:
 Maximum Training Accuracy =  95.23
 Maximum Testing Accuracy =  89.53
 
-##### Div Factor 7:
+Div Factor 7:
 Maximum Training Accuracy =  95.5
 Maximum Testing Accuracy =  89.53
 
-#####  Div factor 8:
+Div factor 8:
 Maximum Training Accuracy =  96.1
 Maximum Testing Accuracy =  90.52
 
-##### Div factor 9:
+Div factor 9:
 Maximum Training Accuracy =  96.15
 Maximum Testing Accuracy =  90.18
 
-##### Div factor 10:
+Div factor 10:
 Maximum Training Accuracy =  96.56
 Maximum Testing Accuracy =  90.57
+``` 
 
 Conclusion: Div factor 8 to 10 achieves target accuracy but the model is outfitting
 
