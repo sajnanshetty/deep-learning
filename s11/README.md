@@ -56,16 +56,16 @@
 ![misclassified1](https://github.com/sajnanshetty/deep-learning/blob/master/s11/images/gradcam.png)
 
 ### Summary:
-1. Used L2 Regularization, scheduler OneCycleLR with max LR value '0.08326219372576217' which
+1. Used L2 Regularization, scheduler OneCycleLR with max LR value `0.08326219372576217` which
  is found using lr finder range test.
 2. Batch Size 512 and Epochs=24
 3. Parameters = 6,573,130
 4. Applied albumentations for train set such as Normalize, HorizontalFlip, Cutout and ToTensor
 5. Applied albumentations for test set such as Normalize and ToTensor
-7. Maximum Train accuracy:   96.56
-8. Test accuracy:  90.57
+7. Maximum Train accuracy:  `96.56`
+8. Test accuracy:  `90.57`
 
-#### Experiment result of  OneCycleLR scheduler for different values of div_factor(1 to 5):
+#### Experiment result of OneCycleLR scheduler for different values of div_factor(1 to 5):
 
 ``` 
 Div Factor 5:
@@ -93,7 +93,7 @@ Maximum Training Accuracy =  96.56
 Maximum Testing Accuracy =  90.57
 ``` 
 
-Conclusion: Div factor 8 to 10 achieves target accuracy but the model is outfitting
+Conclusion: Div factor 8 to 10 achieves target accuracy but the model is outfitting.
 
 
 
