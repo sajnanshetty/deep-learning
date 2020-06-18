@@ -203,3 +203,11 @@ class Plot(object):
         sub.axis("off")
         plt.tight_layout()
         fig.subplots_adjust(wspace=0)
+
+    @staticmethod
+    def plot_cycle_lr(epochs, lr_values):
+        plt.plot(np.arange(epochs), lr_values)
+        plt.xlabel("Num of Epochs")
+        plt.ylabel("Learning rate")
+        plt.title("Lr v/s Epochs")
+        plt.show()
