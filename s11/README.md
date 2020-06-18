@@ -65,7 +65,7 @@
 7. Maximum Train accuracy:   96.56
 8. Test accuracy:  90.57
 
-#### Experiment result for using div_factor from 5 to 10 in OneCycleLR schedule:
+#### Experiment result of  OneCycleLR scheduler for different values of div_factor(1 to 5):
 
 ``` 
 Div Factor 5:
