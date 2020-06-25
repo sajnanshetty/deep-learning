@@ -9,6 +9,11 @@ from torch.optim.lr_scheduler import StepLR, OneCycleLR
 import torch.optim as optim
 from models.resnet import *
 import pickle
+import os
+import requests
+from io import BytesIO
+from tqdm import notebook
+import zipfile
 
 
 class HelperModel(object):
@@ -131,3 +136,21 @@ class HelperModel(object):
         for keys in db:
             print(keys, '=>', db[keys])
         dbfile.close()
+
+    @staticmethod
+    def download_images(down_url):
+        """
+        Extract the zip files
+        :param down_url: url to download eg:'http://cs231n.stanford.edu/tiny-imagenet-200.zip'
+        :return: None
+        """
+        foldername = down_url.split("/")[-1].split(".")[0]
+        if os.path.isdir(foldername):
+            print('Images already downloaded...')
+            return
+        r = requests.get(down_url, stream=True)
+        print('Downloading {0} data'.format(foldername))
+        zip_ref = zipfile.ZipFile(BytesIO(r.content))
+        for file in notebook.tqdm(iterable=zip_ref.namelist(), total=len(zip_ref.namelist())):
+            zip_ref.extract(member=file)
+        zip_ref.close()

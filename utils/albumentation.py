@@ -17,7 +17,6 @@ class AlbumentationImageDataset(Dataset):
         if self.transforms:
             print('Chosing transform ', y)
             x = self.transforms[y](x)  # Chose class transform based on y
-
         return x, y
 
     def __call__(self, image):
