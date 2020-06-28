@@ -13,15 +13,15 @@
  * Find out the best total numbers of clusters. Upload link to your Colab File uploaded to GitHub. 
 
 
-##Task2:  Annotation
+### Task2:  Annotation
 
-### Normalized data of annotation
+#### Normalized data of annotation
 ![data](https://github.com/sajnanshetty/deep-learning/blob/master/s12/annotation/images/normalized_data.PNG)
 
-### Cluster data
+#### Cluster data
 ![cluster](https://github.com/sajnanshetty/deep-learning/blob/master/s12/annotation/images/cluster_3.PNG)
 
-### elbow method to find out best k value, From graph we can decide that '3' is a best fit value.
+#### elbow method to find out best k value, From graph we can decide that '3' is a best fit value.
 ![k_means](https://github.com/sajnanshetty/deep-learning/blob/master/s12/annotation/images/k_means.PNG)
 
 
