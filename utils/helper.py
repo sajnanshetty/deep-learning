@@ -88,7 +88,7 @@ class HelperModel(object):
         return receptive_field_out
 
     @staticmethod
-    def save_model(model, model_obj, optimizer, file_name):
+    def save_model(model, model_obj, optimizer, criterion, file_name, epoch):
         """
 
         :param model: model which needs to be saved
@@ -97,7 +97,9 @@ class HelperModel(object):
         """
         checkpoint = {'model': model_obj,
                       'state_dict': model.state_dict(),
-                      'optimizer': optimizer.state_dict()}
+                      'criterion':  criterion,
+                      'optimizer': optimizer.state_dict(),
+                      'epochs': epoch}
         torch.save(checkpoint, file_name)
 
     @staticmethod
@@ -138,7 +140,7 @@ class HelperModel(object):
         dbfile.close()
 
     @staticmethod
-    def download_images(down_url):
+    def download_extract_images(down_url):
         """
         Extract the zip files
         :param down_url: url to download eg:'http://cs231n.stanford.edu/tiny-imagenet-200.zip'
@@ -154,3 +156,4 @@ class HelperModel(object):
         for file in notebook.tqdm(iterable=zip_ref.namelist(), total=len(zip_ref.namelist())):
             zip_ref.extract(member=file)
         zip_ref.close()
+

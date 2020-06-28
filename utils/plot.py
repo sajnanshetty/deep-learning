@@ -84,7 +84,6 @@ class Plot(object):
         except Exception as err:
             raise err
 
-
     @staticmethod
     def plot_mnist_misclassified_images(misclassified_images, image_count=25):
         fig = plt.figure(figsize=(15, 15))
@@ -184,25 +183,27 @@ class Plot(object):
             files.download(download_image)
 
     @staticmethod
-    def plot_gradcam_images(model, layers, image_list, classes, figsize=(23,33), sub_plot_rows=9, sub_plot_cols=3, image_count=25):
-      fig = plt.figure(figsize=figsize)
-      for i in range(image_count):
-        heat_map_image = [image_list[i][0].cpu()/2+0.5]
-        result_image = [image_list[i][0].cpu()/2+0.5]
-        for model_layer in layers:
-          grad_cam = GradCAM(model, model_layer)
-          mask, _ = grad_cam(image_list[i][0].clone().unsqueeze_(0))
-          heatmap, result = visualize_cam(mask, image_list[i][0].clone().unsqueeze_(0)/2+0.5)
-          heat_map_image.extend([heatmap])
-          result_image.extend([result])
-        grid_image = make_grid(heat_map_image+result_image, nrow=len(layers)+1,pad_value=1)
-        npimg = grid_image.numpy()
-        sub = fig.add_subplot(sub_plot_rows, sub_plot_cols, i+1)
-        plt.imshow(np.transpose(npimg, (1, 2, 0)))
-        sub.set_title('P = '+classes[int(image_list[i][1])]+" A = "+classes[int(image_list[i][2])], fontweight="bold", fontsize=18)
-        sub.axis("off")
-        plt.tight_layout()
-        fig.subplots_adjust(wspace=0)
+    def plot_gradcam_images(model, layers, image_list, classes, figsize=(23, 33), sub_plot_rows=9, sub_plot_cols=3,
+                            image_count=25):
+        fig = plt.figure(figsize=figsize)
+        for i in range(image_count):
+            heat_map_image = [image_list[i][0].cpu() / 2 + 0.5]
+            result_image = [image_list[i][0].cpu() / 2 + 0.5]
+            for model_layer in layers:
+                grad_cam = GradCAM(model, model_layer)
+                mask, _ = grad_cam(image_list[i][0].clone().unsqueeze_(0))
+                heatmap, result = visualize_cam(mask, image_list[i][0].clone().unsqueeze_(0) / 2 + 0.5)
+                heat_map_image.extend([heatmap])
+                result_image.extend([result])
+            grid_image = make_grid(heat_map_image + result_image, nrow=len(layers) + 1, pad_value=1)
+            npimg = grid_image.numpy()
+            sub = fig.add_subplot(sub_plot_rows, sub_plot_cols, i + 1)
+            plt.imshow(np.transpose(npimg, (1, 2, 0)))
+            sub.set_title('P = ' + classes[int(image_list[i][1])] + " A = " + classes[int(image_list[i][2])],
+                          fontweight="bold", fontsize=18)
+            sub.axis("off")
+            plt.tight_layout()
+            fig.subplots_adjust(wspace=0)
 
     @staticmethod
     def plot_cycle_lr(epochs, lr_values):
@@ -211,3 +212,12 @@ class Plot(object):
         plt.ylabel("Learning rate")
         plt.title("Lr v/s Epochs")
         plt.show()
+
+    @staticmethod
+    def show_few_data_set_images(dataloader, images=10, normalize_val=0.5):
+        image, label = iter(dataloader).next()
+        img = make_grid(image[0:images])
+        img = img / 2 + normalize_val  # unnormalize
+        npimg = img.numpy()
+        fig = plt.figure(figsize=(10, 10))
+        plt.imshow(np.transpose(npimg, (1, 2, 0)))

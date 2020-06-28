@@ -1,5 +1,6 @@
 from torch.utils.data import Dataset
 import numpy as np
+import albumentations as A
 
 
 # custom dataset class for albumentations library
@@ -21,4 +22,17 @@ class AlbumentationImageDataset(Dataset):
 
     def __call__(self, image):
         img = np.array(image)
+        return self.transforms(image=img)['image']
+
+
+class Albumentation(object):
+    """
+  Helper class to create test and train transforms using Albumentations
+  """
+
+    def __init__(self, transforms=[]):
+        self.transforms = A.Compose(transforms)
+
+    def __call__(self, img):
+        img = np.array(img)
         return self.transforms(image=img)['image']
