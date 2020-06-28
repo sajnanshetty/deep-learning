@@ -16,13 +16,13 @@
 ##Task2:  Annotation
 
 ### Normalized data of annotation
-![data](https://github.com/sajnanshetty/deep-learning/blob/master/s12/annotation/normalized_data.PNG)
+![data](https://github.com/sajnanshetty/deep-learning/tree/master/s12/annotation/images/normalized_data.PNG)
 
 ### Cluster data
-![cluster](https://github.com/sajnanshetty/deep-learning/blob/master/s12/annotation/cluster_3.PNG)
+![cluster](https://github.com/sajnanshetty/deep-learning/tree/master/s12/annotation/images/cluster_3.PNG)
 
 ### elbow method to find out best k value, From graph we can decide that '3' is a best fi value.
-![k_means](https://github.com/sajnanshetty/deep-learning/blob/master/s12/annotation/k_means.PNG)
+![k_means](https://github.com/sajnanshetty/deep-learning/tree/master/s12/annotation/images/k_means.PNG)
 
 
 
