@@ -38,7 +38,7 @@ Training Custom Dataset on Colab for YoloV3
 #### Visualise Train Batch
 <img src="https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolov3_trained/images/train_batch.PNG">
 
-#### Detecting jerry few samples images from video
+#### Detected few jerry samples images from video
 <img src="https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolov3_trained/images/detected_images.PNG" height="300">
 
 #### YouTube Video
