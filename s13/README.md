@@ -21,7 +21,7 @@ Training Custom Dataset on Colab for YoloV3
 1. Refer to this Colab File:
 [![LINK](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/uday96/EVA4-TSAI/blob/master/S13/EVA4_S13_Solution_YoloV3.ipynb)
 
-1.  Refer to this Colab File: [LINK ](https://colab.research.google.com/drive/1LbKkQf4hbIuiUHunLlvY-cc0d_sNcAgS)
+1.  Refer to this File: [LINK ](https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolov3_trained/yolo_v3.ipynb)
 2.  Refer to this GitHub [Repo](https://github.com/theschoolofai/YoloV3)
 3.  Collect a dataset of 500 images and annotate it. **Please select a class for which you can find a YouTube video as well.** Steps are explained in the readme.md file on GitHub.
 4.  Once done:
