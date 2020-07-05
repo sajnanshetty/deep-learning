@@ -42,7 +42,7 @@ Training Custom Dataset on Colab for YoloV3
 <img src="https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolov3_trained/images/detected_images.PNG" height="300">
 
 #### YouTube Video
-- A video of jerry detector found on YouTube was passed through the trained model. 
+- A video of jerry detector found on YouTube was passed through the trained model. click on below image to see the result 
 
 [![](http://img.youtube.com/vi/HbtuBvCc3AU/0.jpg)](http://www.youtube.com/watch?v=HbtuBvCc3AU "Jerry detection using Yolo v3")
 
