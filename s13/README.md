@@ -16,7 +16,7 @@ The classes '**pen**' and '**hand**' are not detected and class '**tab**' is det
 
 <img src="https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolo_opencv/images/image3_detect.PNG">
 
-## Task B
+## Task2
 Training Custom Dataset on Colab for YoloV3
 1.  Refer to this File: [LINK ](https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolov3_trained/yolo_v3.ipynb)
 2.  Refer to this GitHub [Repo](https://github.com/theschoolofai/YoloV3)
