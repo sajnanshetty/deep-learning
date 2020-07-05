@@ -3,6 +3,7 @@ ________
 YoloV3 Simplified for training on Colab with custom dataset. 
 
 _A Collage of Training images_
+
 ![image](https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolov3_trained/images/train_batch.PNG)
 
 
