@@ -17,7 +17,7 @@ You'll need to download the weights from the original source.
   * to save time, move the file from the above link to your GDrive
   * then drag and drop from your GDrive opened in Colab to weights folder
 4. run this command
-`python train.py --data data/smalcoco/smalcoco.data --batch 10 --cache --epochs 25 --nosave`
+`python train.py --data data/smalcoco/smalcoco.data --batch 20 --cache --epochs 300`
 
 For custom dataset:
 1. Clone this repo: https://github.com/miki998/YoloV3_Annotation_Tool
@@ -28,12 +28,12 @@ For custom dataset:
 data
   --customdata
     --images/
-      --img001.jpg
-      --img002.jpg
+      --1.jpg
+      --2.jpg
       --...
     --labels/
-      --img001.txt
-      --img002.txt
+      --1.txt
+      --2.txt
       --...
     custom.data #data file
     custom.names #your class names
@@ -48,9 +48,9 @@ data
 ```
 6. As you it a poor idea to keep test and train data same, but the point of this repo is to get you up and running with YoloV3 asap. You'll probably do a mistake in writing to custom.txt file. This is how our file looks like (please note the .s and /s):
 ```
-./data/customdata/images/img001.jpg
-./data/customdata/images/img002.jpg
-./data/customdata/images/img003.jpg
+./data/customdata/images/1.jpg
+./data/customdata/images/2.jpg
+./data/customdata/images/3.jpg
 ...
 ```
 7. You need to add custom.names file as you can see above. For our example, we downloaded images of Walle. Our custom.names file look like this:
@@ -75,4 +75,4 @@ As you can see in the collage image above, a lot is going on, and if you are cre
 **Results**
 After training for 300 Epochs, results look awesome!
 
-![image](https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolov3_trained/images/detected_images.PNG)
+[![](http://img.youtube.com/vi/HbtuBvCc3AU/0.jpg)](http://www.youtube.com/watch?v=HbtuBvCc3AU "Jerry detection using Yolo v3")
