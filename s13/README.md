@@ -43,7 +43,8 @@ Training Custom Dataset on Colab for YoloV3
 
 #### YouTube Video
 - A video of jerry detector found on YouTube was passed through the trained model. 
-- The video can be found at [https://youtu.be/HbtuBvCc3AU](https://youtu.be/HbtuBvCc3AU)
+
+[![](http://img.youtube.com/vi/HbtuBvCc3AU/0.jpg)](http://www.youtube.com/watch?v=HbtuBvCc3AU "Jerry detection using Yolo v3")
 
 
 
