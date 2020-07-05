@@ -7,14 +7,14 @@ OpenCV Yolo: [SOURCE ](https://pysource.com/2019/06/27/yolo-object-detection-usi
 4. Upload the link to GitHub implementation of this
 5. Upload the annotated image by YOLO. 
 
-### Annotated Image
+### Summary of Annotated Images
 The classe "**bottle**" detected correctly.
 
-<img src="yoloopencv/image4_detect.PNG">
+<img src="https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolo_opencv/images/image4_detect.PNG">
 
 The classe '**pen**' and '**hand**' are not detected and class '**tab**' is detected as '**tvmonitor**'
 
-<img src="yoloopencv/image3_detect.PNG">
+<img src="https://github.com/sajnanshetty/deep-learning/blob/master/s13/yolo_opencv/images/image3_detect.PNG">
 
 ## Task B
 Training Custom Dataset on Colab for YoloV3
