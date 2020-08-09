@@ -3,7 +3,7 @@
 Given an image with foreground objects and background image, predict the depth map as well as a mask for the foreground object.
 ```
 ### Dataset preparation and statistics
-[readme_s15A](https://github.com/sajnanshetty/deep-learning/blob/master/s14_s15A/README.md)
+https://github.com/sajnanshetty/deep-learning/blob/master/s14_s15A/README.md
 
 ### Notations Used
 fg - Foreground 
@@ -249,16 +249,16 @@ Below images are the result trained from part of dataset(12k).
  * Result of image size 128
     ```
     Prediction:
-    Avg IOU for mask prediction: 0.9420946
-    Avg IOU for dense depth prediction: 0.74543
+    Avg IOU for mask prediction: 0.9499
+    Avg IOU for dense depth prediction: 0.7299
     ```
  [image1](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/128_image_size.png)
   
  * Result of image size 64
     ```
     Prediction:
-    Avg IOU for mask prediction: 0.9420946
-    Avg IOU for dense depth prediction: 0.74543
+    Avg IOU for mask prediction: 0.9420
+    Avg IOU for dense depth prediction: 0.7454
    ```
  [image2](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/predicted_images_64_size.png)
     
