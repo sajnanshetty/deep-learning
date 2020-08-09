@@ -256,6 +256,13 @@ Below images are the result trained from part of dataset(12k).
     Avg IOU for mask prediction: 0.9499
     Avg IOU for dense depth prediction: 0.7299
     ```
+ * Result of image size 64
+    ```
+    Prediction:
+    Avg IOU for mask prediction: 0.9420
+    Avg IOU for dense depth prediction: 0.7454
+   ```
+Visualisation of prediction for size 128 x 128:
    ```
     order of images:
         1. actual Mask
@@ -264,16 +271,7 @@ Below images are the result trained from part of dataset(12k).
         4. predicted dense depth
    ```
  ![image1](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/128_image_size.png)
-  
- * Result of image size 64
-    ```
-    Prediction:
-    Avg IOU for mask prediction: 0.9420
-    Avg IOU for dense depth prediction: 0.7454
-   ```
- ![image2](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/predicted_images_64_size.png)
     
-
 The prediction of mask images are clear irrespective of any input image size.
 The prediction of dense depth images are more clear when size of the image goes higher.
 
