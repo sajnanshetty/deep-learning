@@ -14,7 +14,7 @@ dense depth - Depth map
 
 ### Data Description
 A custom dataset  will be used to train this model refer below link for more detail:
-[data_preparation](https://github.com/sajnanshetty/deep-learning/blob/master/s14_s15A/README.md)
+[https://github.com/sajnanshetty/deep-learning/blob/master/s14_s15A/README.md](https://github.com/sajnanshetty/deep-learning/blob/master/s14_s15A/README.md)
 * 100 RGB background images
 * 400k RGB foreground overplayed on background images
 * 400k gray scale masks images which is created from fg_bg.
@@ -24,10 +24,10 @@ A custom dataset  will be used to train this model refer below link for more det
 ### Model and Architecture
 Customized implementation of the [U-Net](https://arxiv.org/abs/1505.04597) in PyTorch for predicting mask and dense images.
 * Unet Model architecture:
-[Unet](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/unet-architecture.png)
+![Unet](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/unet-architecture.png)
 
 * Customised Unet architecture to produce 2 targets
-[Unet_custon](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/custom_unet.PNG)
+![Unet_custon](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/custom_unet.PNG)
 
 * Input of the model : The concatenated image of bg and fg_bg images
 ```
@@ -141,7 +141,7 @@ class Unet(nn.Module):
     * the model returns 2 target images i.e mask and dense depth with each one channel.
 
 ### Model Summary
-[model_summary](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/model_summary.PNG)
+![model_summary](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/model_summary.PNG)
 
 ### Custom data set
 * Facilities to pass bg numbers, which returns corresponding fg_bg's, mask and dense depth images.
@@ -252,7 +252,7 @@ Below images are the result trained from part of dataset(12k).
     Avg IOU for mask prediction: 0.9499
     Avg IOU for dense depth prediction: 0.7299
     ```
- [image1](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/128_image_size.png)
+ ![image1](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/128_image_size.png)
   
  * Result of image size 64
     ```
@@ -260,7 +260,7 @@ Below images are the result trained from part of dataset(12k).
     Avg IOU for mask prediction: 0.9420
     Avg IOU for dense depth prediction: 0.7454
    ```
- [image2](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/predicted_images_64_size.png)
+ ![image2](https://github.com/sajnanshetty/deep-learning/blob/master/s15/images/predicted_images_64_size.png)
     
 
 The prediction of mask images are clear irrespective of any input image size.
