@@ -6,19 +6,23 @@ Given an image with foreground objects and background image, predict the depth m
 https://github.com/sajnanshetty/deep-learning/blob/master/s14_s15A/README.md
 
 ### Notations Used
-fg - Foreground 
-bg - Background
-fg_bg - Foreground images overlayed on background images
-mask - Mask 
-dense depth - Depth map
+```
+    fg - Foreground 
+    bg - Background
+    fg_bg - Foreground images overlayed on background images
+    mask - Mask 
+    dense depth - Depth map
+```
 
 ### Data Description
 A custom dataset  will be used to train this model refer below link for more detail:
 [https://github.com/sajnanshetty/deep-learning/blob/master/s14_s15A/README.md](https://github.com/sajnanshetty/deep-learning/blob/master/s14_s15A/README.md)
+```
 * 100 RGB background images
 * 400k RGB foreground overplayed on background images
 * 400k gray scale masks images which is created from fg_bg.
 * 400k gray scale dense depth images which is created from fg_bg.
+```
 [Dataset Link]: (https://drive.google.com/drive/folders/1UQpDsJrcUR4PYDo9vEWeWvG5XGormwTk?usp=sharing)
 
 ### Model and Architecture
@@ -273,7 +277,7 @@ Below images are the result trained from part of dataset(12k).
 The prediction of mask images are clear irrespective of any input image size.
 The prediction of dense depth images are more clear when size of the image goes higher.
 
-the saved models are stored in below path:
+The saved models are stored in below path:
 Saving the model for each best prediction and can be found in below location
 [saved_images](https://drive.google.com/drive/folders/1lRZWQ6-SNggtGJ5dxETclky7mKBqxyK2?usp=sharing)
     
