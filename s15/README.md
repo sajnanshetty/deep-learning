@@ -275,7 +275,6 @@ Visualisation of prediction for size 128 x 128:
 The prediction of mask images are clear irrespective of any input image size.
 The prediction of dense depth images are more clear when size of the image goes higher.
 
-The saved models are stored in below path:
 Saving the model for each best prediction and can be found in below location
 [saved_images](https://drive.google.com/drive/folders/1lRZWQ6-SNggtGJ5dxETclky7mKBqxyK2?usp=sharing)
     
